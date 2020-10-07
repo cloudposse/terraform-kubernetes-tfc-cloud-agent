@@ -65,7 +65,7 @@ usage: |-
 
     k8s_namespace   = "tfc-agent"         # You can specify a namespace other than "default"
     tfc_agent_name  = "example-tfc-agent" # Must be a DNS-compliant name
-    tfc_agent_token = "SET_ME"          # Your agent token generated in Terraform Cloud
+    tfc_agent_token = "SET_ME"            # Your agent token generated in Terraform Cloud
   }
   ```
 
