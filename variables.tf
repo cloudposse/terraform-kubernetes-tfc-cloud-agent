@@ -1,6 +1,7 @@
 variable "deployment_name" {
-  type    = string
-  default = "tfc-agent"
+  type        = string
+  default     = "tfc-agent"
+  description = "Name of the deployment in Kubernetes"
 }
 
 variable "k8s_namespace" {
@@ -30,9 +31,7 @@ variable "replicas" {
 
 variable "annotations" {
   type    = map
-  default = {
-    "sidecar.istio.io/inject" = "false"
-  }
+  default = {}
 }
 
 variable "tfc_agent_image" {

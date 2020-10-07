@@ -27,8 +27,7 @@
 
 -->
 
-This is `terraform-kubernetes-tfe-cloud-agent` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-use when creating new repositories.
+This project installed the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
 
 
 ---
@@ -69,12 +68,14 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/releases).
 
 
-Here's how to invoke this example module in your projects
 
 ```hcl
-module "example" {
+module "tfc_agent" {
   source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
-  example = "Hello world!"
+
+  k8s_namespace   = "tfc-agent"         # You can specify a namespace other than "default"
+  tfc_agent_name  = "example-tfc-agent" # Must be a DNS-compliant name
+  tfc_agent_token = "SET_ME"          # Your agent token generated in Terraform Cloud
 }
 ```
 
@@ -119,11 +120,11 @@ Available targets:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| annotations | n/a | `map` | <pre>{<br>  "sidecar.istio.io/inject": "false"<br>}</pre> | no |
+| annotations | n/a | `map` | `{}` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | delimiter | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| deployment\_name | n/a | `string` | `"tfc-agent"` | no |
+| deployment\_name | Name of the deployment in Kubernetes | `string` | `"tfc-agent"` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
