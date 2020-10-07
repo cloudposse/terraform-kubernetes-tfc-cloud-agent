@@ -1,7 +1,9 @@
 resource "kubernetes_deployment" "tfc-agent" {
+  count = module.this.enabled ? 1 : 0
+
   metadata {
     name = var.deployment_name
-    namespace = var.k8s_namespace
+    namespace = var.kubernetes_namespace
     labels = var.labels
   }
   spec {
@@ -25,7 +27,7 @@ resource "kubernetes_deployment" "tfc-agent" {
           }
           env {
             name  = "TFC_AGENT_NAME"
-            value = var.tfc_agent_name
+            value = module.this.id
           }
           resources {
             limits {

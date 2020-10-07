@@ -60,12 +60,22 @@ description: |-
 usage: |-
 
   ```hcl
+  provider "kubernetes" {
+    #Context to choose from the config file, if needed.
+    config_context = "example-context"
+    version        = "~> 1.12"
+  }
+
   module "tfc_agent" {
     source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
-    kubernetes_namespace = "tfc-agent"         # You can specify a namespace other than "default"
-    tfc_agent_name       = "example-tfc-agent" # Must be a DNS-compliant name
-    tfc_agent_token      = "SET_ME"            # Your agent token generated in Terraform Cloud
+    token      = var.token # Your agent token generated in Terraform Cloud
+
+    namespace  = var.namespace
+    stage      = var.stage
+    name       = var.name
+
+    kubernetes_namespace = "tfc-agent" # You can specify a namespace other than "default"
   }
   ```
 
