@@ -128,7 +128,7 @@ Available targets:
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| k8s\_namespace | Kubernetes namespace to deploy agent within | `string` | `"default"` | no |
+| kubernetes\_namespace | Kubernetes namespace to deploy agent within | `string` | `"default"` | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | labels | n/a | `map` | <pre>{<br>  "app": "tfc-agent"<br>}</pre> | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |

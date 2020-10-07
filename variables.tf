@@ -4,7 +4,7 @@ variable "deployment_name" {
   description = "Name of the deployment in Kubernetes"
 }
 
-variable "k8s_namespace" {
+variable "kubernetes_namespace" {
   type        = string
   default     = "default"
   description = "Kubernetes namespace to deploy agent within"
