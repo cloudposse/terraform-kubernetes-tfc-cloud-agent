@@ -4,12 +4,13 @@
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12.0, < 0.14.0 |
+| kubernetes | >= 1.12.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| kubernetes | n/a |
+| kubernetes | >= 1.12.0 |
 
 ## Inputs
 
