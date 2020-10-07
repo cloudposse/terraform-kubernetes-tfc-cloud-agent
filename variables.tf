@@ -15,6 +15,7 @@ variable "labels" {
   default = {
     app   = "tfc-agent"
   }
+  description = "Labels to apply to the Kubernetes deployment"
 }
 
 variable "selector_match_labels" {
@@ -22,26 +23,29 @@ variable "selector_match_labels" {
   default = {
     app = "tfc-agent"
   }
+  description = "Selector labels to match on the Kubernetes deployment"
 }
 
 variable "replicas" {
   type    = number
   default = 1
+  description = "Number of replicas in the Kubernetes deployment"
 }
 
 variable "annotations" {
   type    = map
   default = {}
+  description = "Annotations to add to the Kubernetes deployment"
 }
 
 variable "agent_image" {
   type        = string
-  description = "Name and tag of TFC agent docker image"
   default     = "hashicorp/tfc-agent:latest"
+  description = "Name and tag of TFC agent docker image"
 }
 
 variable "token" {
   type        = string
-  description = "The agent token, as configured in Terraform Cloud"
   default     = ""
+  description = "The agent token, as configured in Terraform Cloud"
 }
