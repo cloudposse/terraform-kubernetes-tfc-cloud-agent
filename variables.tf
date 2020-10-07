@@ -41,7 +41,7 @@ variable "annotations" {
 variable "agent_image" {
   type        = string
   default     = "hashicorp/tfc-agent:latest"
-  description = "Name and tag of TFC agent docker image"
+  description = "Name and tag of Terraform Cloud Agent docker image"
 }
 
 variable "token" {
