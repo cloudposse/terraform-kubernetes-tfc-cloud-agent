@@ -1,10 +1,20 @@
-resource "kubernetes_deployment" "tfc-agent" {
+resource "kubernetes_service_account" "service_account" {
   count = module.this.enabled ? 1 : 0
 
   metadata {
-    name = var.deployment_name
+    name        = var.deployment_name
+    namespace   = var.kubernetes_namespace
+    annotations = var.service_account_annotations
+  }
+}
+
+resource "kubernetes_deployment" "tfc_cloud_agent" {
+  count = module.this.enabled ? 1 : 0
+
+  metadata {
+    name      = var.deployment_name
     namespace = var.kubernetes_namespace
-    labels = var.labels
+    labels    = var.labels
   }
   spec {
     selector {
@@ -14,10 +24,12 @@ resource "kubernetes_deployment" "tfc-agent" {
 
     template {
       metadata {
-        labels = var.labels
-        annotations = var.annotations
+        labels      = var.labels
+        annotations = var.deployment_annotations
       }
       spec {
+        service_account_name = kubernetes_service_account.service_account.0.metadata.0.name
+        automount_service_account_token = true
         container {
           image = var.agent_image
           name  = "tfc-agent"

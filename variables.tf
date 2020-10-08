@@ -11,15 +11,15 @@ variable "kubernetes_namespace" {
 }
 
 variable "labels" {
-  type    = map
+  type = map
   default = {
-    app   = "tfc-agent"
+    app = "tfc-agent"
   }
   description = "Labels to apply to the Kubernetes deployment"
 }
 
 variable "selector_match_labels" {
-  type    = map
+  type = map
   default = {
     app = "tfc-agent"
   }
@@ -27,15 +27,21 @@ variable "selector_match_labels" {
 }
 
 variable "replicas" {
-  type    = number
-  default = 1
+  type        = number
+  default     = 1
   description = "Number of replicas in the Kubernetes deployment"
 }
 
-variable "annotations" {
-  type    = map
-  default = {}
+variable "deployment_annotations" {
+  type        = map
+  default     = {}
   description = "Annotations to add to the Kubernetes deployment"
+}
+
+variable "service_account_annotations" {
+  type        = map
+  default     = {}
+  description = "Annotations to add to the Kubernetes service account"
 }
 
 variable "agent_image" {
