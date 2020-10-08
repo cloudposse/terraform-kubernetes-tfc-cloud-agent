@@ -54,21 +54,28 @@ references:
 
 # Short description of this project
 description: |-
-  This is `terraform-kubernetes-tfe-cloud-agent` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-  use when creating new repositories.
-
-# Introduction to the project
-#introduction: |-
-#  This is an introduction.
+  This project installed the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
-  Here's how to invoke this example module in your projects
 
   ```hcl
-  module "example" {
+  provider "kubernetes" {
+    #Context to choose from the config file, if needed.
+    config_context = "example-context"
+    version        = "~> 1.12"
+  }
+
+  module "tfc_agent" {
     source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
-    example = "Hello world!"
+
+    token       = var.token # Your agent token generated in Terraform Cloud
+    namespace   = var.namespace
+    stage       = var.stage
+    environment = var.environment
+    name        = var.name
+
+    kubernetes_namespace = "tfc-agent" # You can specify a namespace other than "default"
   }
   ```
 
@@ -76,10 +83,6 @@ usage: |-
 examples: |-
   Here is an example of using this module:
   - [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/) - complete example of using this module
-
-# How to get started quickly
-#quickstart: |-
-#  Here's how to get started...
 
 # Other files to include in this README from the project folder
 include:

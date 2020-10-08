@@ -1,50 +1,57 @@
 variable "deployment_name" {
-  type    = string
-  default = "tfc-agent"
+  type        = string
+  default     = "tfc-agent"
+  description = "Name of the deployment in Kubernetes"
 }
 
-variable "k8s_namespace" {
+variable "kubernetes_namespace" {
   type        = string
   default     = "default"
   description = "Kubernetes namespace to deploy agent within"
 }
 
 variable "labels" {
-  type    = map
-  default = {
-    app   = "tfc-agent"
-  }
-}
-
-variable "selector_match_labels" {
-  type    = map
+  type = map
   default = {
     app = "tfc-agent"
   }
+  description = "Labels to apply to the Kubernetes deployment"
+}
+
+variable "selector_match_labels" {
+  type = map
+  default = {
+    app = "tfc-agent"
+  }
+  description = "Selector labels to match on the Kubernetes deployment"
 }
 
 variable "replicas" {
-  type    = number
-  default = 1
+  type        = number
+  default     = 1
+  description = "Number of replicas in the Kubernetes deployment"
 }
 
-variable "annotations" {
-  type    = map
-  default = {
-    "sidecar.istio.io/inject" = "false"
-  }
+variable "deployment_annotations" {
+  type        = map
+  default     = {}
+  description = "Annotations to add to the Kubernetes deployment"
 }
 
-variable "tfc_agent_image" {
+variable "service_account_annotations" {
+  type        = map
+  default     = {}
+  description = "Annotations to add to the Kubernetes service account"
+}
+
+variable "agent_image" {
   type        = string
-  description = "Name and tag of TFC agent docker image"
   default     = "hashicorp/tfc-agent:latest"
+  description = "Name and tag of Terraform Cloud Agent docker image"
 }
 
-variable "tfc_agent_name" {
-  type = string
-}
-
-variable "tfc_agent_token" {
-  type = string
+variable "token" {
+  type        = string
+  default     = ""
+  description = "The agent token, as configured in Terraform Cloud"
 }

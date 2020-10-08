@@ -1,23 +1,20 @@
 resource "kubernetes_service_account" "service_account" {
-  metadata {
-    name = var.deployment_name
-  }
-  secret {
-    name = "${kubernetes_secret.secret.metadata.0.name}"
-  }
-}
+  count = module.this.enabled ? 1 : 0
 
-resource "kubernetes_secret" "secret" {
   metadata {
-    name = var.deployment_name
+    name        = var.deployment_name
+    namespace   = var.kubernetes_namespace
+    annotations = var.service_account_annotations
   }
 }
 
 resource "kubernetes_deployment" "tfc_cloud_agent" {
+  count = module.this.enabled ? 1 : 0
+
   metadata {
-    name = var.deployment_name
-    namespace = var.k8s_namespace
-    labels = var.labels
+    name      = var.deployment_name
+    namespace = var.kubernetes_namespace
+    labels    = var.labels
   }
   spec {
     selector {
@@ -27,20 +24,22 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
 
     template {
       metadata {
-        labels = var.labels
-        annotations = var.annotations
+        labels      = var.labels
+        annotations = var.deployment_annotations
       }
       spec {
+        service_account_name = kubernetes_service_account.service_account.0.metadata.0.name
+        automount_service_account_token = true
         container {
-          image = var.tfc_agent_image
+          image = var.agent_image
           name  = "tfc-agent"
           env {
             name  = "TFC_AGENT_TOKEN"
-            value = var.tfc_agent_token
+            value = var.token
           }
           env {
             name  = "TFC_AGENT_NAME"
-            value = var.tfc_agent_name
+            value = module.this.id
           }
           resources {
             limits {
