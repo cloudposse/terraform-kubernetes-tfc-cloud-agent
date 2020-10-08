@@ -32,13 +32,13 @@ variable "replicas" {
   description = "Number of replicas in the Kubernetes deployment"
 }
 
-variable "annotations" {
+variable "deployment_annotations" {
   type        = map
   default     = {}
   description = "Annotations to add to the Kubernetes deployment"
 }
 
-variable "service_annotations" {
+variable "service_account_annotations" {
   type        = map
   default     = {}
   description = "Annotations to add to the Kubernetes service account"
