@@ -1,4 +1,4 @@
 variable "token" {
   type        = string
-  description = "The value which will be passed to the example module"
+  description = "The preconfigured Terraform Cloud Agent token"
 }
