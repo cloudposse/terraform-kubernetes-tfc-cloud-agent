@@ -1,4 +1,19 @@
-resource "kubernetes_deployment" "tfc-agent" {
+resource "kubernetes_service_account" "service_account" {
+  metadata {
+    name = var.deployment_name
+  }
+  secret {
+    name = "${kubernetes_secret.secret.metadata.0.name}"
+  }
+}
+
+resource "kubernetes_secret" "secret" {
+  metadata {
+    name = var.deployment_name
+  }
+}
+
+resource "kubernetes_deployment" "tfc_cloud_agent" {
   metadata {
     name = var.deployment_name
     namespace = var.k8s_namespace
