@@ -6,4 +6,3 @@ stage = "test"
 
 name = "example"
 
-#token = ""
