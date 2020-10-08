@@ -31,12 +31,12 @@ resource "kubernetes_deployment" "tfc-agent" {
           }
           resources {
             limits {
-              cpu    = "1"
-              memory = "512Mi"
+              cpu    = var.resource_limits_cpu
+              memory = var.resource_limits_memory
             }
             requests {
-              cpu    = "250m"
-              memory = "50Mi"
+              cpu    = var.resource_requests_cpu
+              memory = var.resource_requests_memory
             }
           }
         }
