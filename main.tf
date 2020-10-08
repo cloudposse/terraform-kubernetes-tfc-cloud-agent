@@ -28,7 +28,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
         annotations = var.deployment_annotations
       }
       spec {
-        service_account_name = kubernetes_service_account.service_account.0.metadata.0.name
+        service_account_name            = kubernetes_service_account.service_account.0.metadata.0.name
         automount_service_account_token = true
         container {
           image = var.agent_image
