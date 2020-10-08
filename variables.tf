@@ -11,15 +11,15 @@ variable "kubernetes_namespace" {
 }
 
 variable "labels" {
-  type = map
+  type    = map
   default = {
-    app = "tfc-agent"
+    app   = "tfc-agent"
   }
   description = "Labels to apply to the Kubernetes deployment"
 }
 
 variable "selector_match_labels" {
-  type = map
+  type    = map
   default = {
     app = "tfc-agent"
   }
@@ -27,21 +27,15 @@ variable "selector_match_labels" {
 }
 
 variable "replicas" {
-  type        = number
-  default     = 1
+  type    = number
+  default = 1
   description = "Number of replicas in the Kubernetes deployment"
 }
 
-variable "deployment_annotations" {
-  type        = map
-  default     = {}
+variable "annotations" {
+  type    = map
+  default = {}
   description = "Annotations to add to the Kubernetes deployment"
-}
-
-variable "service_account_annotations" {
-  type        = map
-  default     = {}
-  description = "Annotations to add to the Kubernetes service account"
 }
 
 variable "agent_image" {
@@ -54,4 +48,28 @@ variable "token" {
   type        = string
   default     = ""
   description = "The agent token, as configured in Terraform Cloud"
+}
+
+variable "resource_limits_cpu" {
+  type        = string
+  default     = "1"
+  description = "Kubernetes deployment resource CPU limit"
+}
+
+variable "resource_limits_memory" {
+  type        = string
+  default     = "512Mi"
+  description = "Kubernetes deployment resource memory limit"
+}
+
+variable "resource_requests_cpu" {
+  type        = string
+  default     = "250m"
+  description = "Kubernetes deployment resource CPU requests"
+}
+
+variable "resource_requests_memory" {
+  type        = string
+  default     = "50Mi"
+  description = "Kubernetes deployment resource memory requests"
 }
