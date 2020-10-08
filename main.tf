@@ -19,11 +19,11 @@ resource "kubernetes_deployment" "tfc-agent" {
       }
       spec {
         container {
-          image = var.tfc_agent_image
+          image = var.agent_image
           name  = "tfc-agent"
           env {
             name  = "TFC_AGENT_TOKEN"
-            value = var.tfc_agent_token
+            value = var.token
           }
           env {
             name  = "TFC_AGENT_NAME"

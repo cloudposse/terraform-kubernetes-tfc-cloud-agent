@@ -69,11 +69,11 @@ usage: |-
   module "tfc_agent" {
     source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
-    token      = var.token # Your agent token generated in Terraform Cloud
-
-    namespace  = var.namespace
-    stage      = var.stage
-    name       = var.name
+    token       = var.token # Your agent token generated in Terraform Cloud
+    namespace   = var.namespace
+    stage       = var.stage
+    environment = var.environment
+    name        = var.name
 
     kubernetes_namespace = "tfc-agent" # You can specify a namespace other than "default"
   }

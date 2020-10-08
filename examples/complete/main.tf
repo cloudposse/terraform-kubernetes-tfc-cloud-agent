@@ -1,7 +1,10 @@
-module "example" {
+  provider "kubernetes" {
+    version        = "~> 1.12"
+  }
+
+module "tfc_agent" {
   source = "../.."
 
-  example = var.example
-
   context = module.this.context
+  token   = var.token
 }
