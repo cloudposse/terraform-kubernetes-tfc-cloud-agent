@@ -29,6 +29,8 @@
 
 This project installed the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
 
+NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription. 
+
 
 ---
 
@@ -71,7 +73,7 @@ Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest re
 
 ```hcl
 provider "kubernetes" {
-  #Context to choose from the config file, if needed.
+  # Context to choose from the config file, if needed.
   config_context = "example-context"
   version        = "~> 1.12"
 }
@@ -79,13 +81,15 @@ provider "kubernetes" {
 module "tfc_agent" {
   source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
-  token       = var.token # Your agent token generated in Terraform Cloud
+  # Your agent token generated in Terraform Cloud
+  token       = var.token 
   namespace   = var.namespace
   stage       = var.stage
   environment = var.environment
   name        = var.name
 
-  kubernetes_namespace = "tfc-agent" # You can specify a namespace other than "default"
+  # You can specify a namespace other than "default"
+  kubernetes_namespace = "tfc-agent" 
 }
 ```
 
@@ -135,22 +139,30 @@ Available targets:
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | delimiter | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | deployment\_annotations | Annotations to add to the Kubernetes deployment | `map` | `{}` | no |
-| deployment\_name | Name of the deployment in Kubernetes | `string` | `"tfc-agent"` | no |
+| deployment\_name | Override the deployment name in Kubernetes | `string` | `null` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | id\_length\_limit | Limit `id` to this many characters.<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
-| kubernetes\_namespace | Kubernetes namespace to deploy agent within | `string` | `"default"` | no |
+| kubernetes\_namespace | Kubernetes namespace override | `string` | `null` | no |
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
-| labels | Labels to apply to the Kubernetes deployment | `map` | <pre>{<br>  "app": "tfc-agent"<br>}</pre> | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | replicas | Number of replicas in the Kubernetes deployment | `number` | `1` | no |
+| resource\_limits\_cpu | Kubernetes deployment resource hard CPU limit | `string` | `"1"` | no |
+| resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
+| resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
+| resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
 | selector\_match\_labels | Selector labels to match on the Kubernetes deployment | `map` | <pre>{<br>  "app": "tfc-agent"<br>}</pre> | no |
 | service\_account\_annotations | Annotations to add to the Kubernetes service account | `map` | `{}` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
-| token | The agent token, as configured in Terraform Cloud | `string` | `""` | no |
+| tfc\_address | The HTTP or HTTPS address of the Terraform Cloud API. | `string` | `"https://app.terraform.io"` | no |
+| tfc\_agent\_data\_dir | The path to a directory to store all agent-related data, including<br>    Terraform configurations, cached Terraform release archives, etc. It is<br>    important to ensure that the given directory is backed by plentiful<br>    storage. | `string` | `"~/.tfc-agent"` | no |
+| tfc\_agent\_disable\_update | Disable automatic core updates. | `bool` | `false` | no |
+| tfc\_agent\_log\_level | The log verbosity expressed as a level string. Level options include<br>    "trace", "debug", "info", "warn", and "error" | `string` | `"info"` | no |
+| tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>    immediately exit thereafter. Useful for running agents as ephemeral<br>    containers, VMs, or other isolated contexts with a higher-level scheduler<br>    or process supervisor. | `bool` | `false` | no |
+| tfc\_agent\_token | The agent token to use when making requests to the Terraform Cloud API.<br>    This token must be obtained from the API or UI.  It is recommended to use<br>    the environment variable whenever possible for configuring this setting due<br>    to the sensitive nature of API tokens. | `string` | `""` | no |
 
 ## Outputs
 
@@ -183,6 +195,9 @@ For additional context, refer to some of these links.
 - [Terraform Standard Module Structure](https://www.terraform.io/docs/modules/index.html#standard-module-structure) - HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories.
 - [Terraform Module Requirements](https://www.terraform.io/docs/registry/modules/publish.html#requirements) - HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy.
 - [Terraform Version Pinning](https://www.terraform.io/docs/configuration/terraform.html#specifying-a-required-terraform-version) - The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration
+- [Terraform Cloud Agents](https://www.terraform.io/docs/cloud/workspaces/agent.html) - Terraform Cloud Agents are a solution to allow Terraform Cloud to communicate with isolated, private, or on-premises infrastructure.
+- [Announcing HashiCorp Terraform Cloud Business Tier](https://www.hashicorp.com/blog/announcing-hashicorp-terraform-cloud-business) - This new tier includes enterprise features for advanced security, compliance and governance, the ability to execute multiple runs concurrently, and flexible support options.
+- [Announcing Terraform Cloud Business Tier with Armon Dadgar](https://www.hashicorp.com/resources/announcing-terraform-cloud-business-tier-with-armon-dadgar) - Watch HashiCorp co-founder and CTO Armon Dadgar announce the latest addition to Terraform Cloud: the new Business tier.
 
 
 ## Help

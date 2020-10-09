@@ -51,12 +51,21 @@ references:
   - name: "Terraform Version Pinning"
     description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
     url: "https://www.terraform.io/docs/configuration/terraform.html#specifying-a-required-terraform-version"
+  - name: "Terraform Cloud Agents"
+    description: "Terraform Cloud Agents are a solution to allow Terraform Cloud to communicate with isolated, private, or on-premises infrastructure."
+    url: "https://www.terraform.io/docs/cloud/workspaces/agent.html"
+  - name: "Announcing HashiCorp Terraform Cloud Business Tier"
+    description: "This new tier includes enterprise features for advanced security, compliance and governance, the ability to execute multiple runs concurrently, and flexible support options."
+    url: "https://www.hashicorp.com/blog/announcing-hashicorp-terraform-cloud-business"
+  - name: "Announcing Terraform Cloud Business Tier with Armon Dadgar"
+    description: "Watch HashiCorp co-founder and CTO Armon Dadgar announce the latest addition to Terraform Cloud: the new Business tier."
+    url: "https://www.hashicorp.com/resources/announcing-terraform-cloud-business-tier-with-armon-dadgar"
 
 # Short description of this project
 description: |-
   This project installed the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
   
-  NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription. 
+  NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription.
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
@@ -72,14 +81,14 @@ usage: |-
     source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
     # Your agent token generated in Terraform Cloud
-    token       = var.token 
+    token       = var.tcf_agent_token
     namespace   = var.namespace
     stage       = var.stage
     environment = var.environment
     name        = var.name
 
     # You can specify a namespace other than "default"
-    kubernetes_namespace = "tfc-agent" 
+    kubernetes_namespace = "tfc-agent"
   }
   ```
 
