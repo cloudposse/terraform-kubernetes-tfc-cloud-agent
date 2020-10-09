@@ -75,7 +75,8 @@ usage: |-
     environment = var.environment
     name        = var.name
 
-    kubernetes_namespace = "tfc-agent" # You can specify a namespace other than "default"
+    # You can specify a namespace other than "default"
+    kubernetes_namespace = "tfc-agent" 
   }
   ```
 
