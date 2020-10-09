@@ -2,7 +2,7 @@ resource "kubernetes_service_account" "service_account" {
   count = module.this.enabled ? 1 : 0
 
   metadata {
-    name        = var.deployment_name
+    name        = coalesce(var.deployment_name, module.this.id)
     namespace   = var.kubernetes_namespace
     annotations = var.service_account_annotations
   }
