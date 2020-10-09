@@ -10,14 +10,6 @@ variable "kubernetes_namespace" {
   description = "Kubernetes namespace override"
 }
 
-variable "selector_match_labels" {
-  type = map
-  default = {
-    app = "tfc-agent"
-  }
-  description = "Selector labels to match on the Kubernetes deployment"
-}
-
 variable "replicas" {
   type        = number
   default     = 1

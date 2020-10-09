@@ -18,7 +18,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
   }
   spec {
     selector {
-      match_labels = var.selector_match_labels
+      match_labels = module.this.tags
     }
     replicas = var.replicas
 

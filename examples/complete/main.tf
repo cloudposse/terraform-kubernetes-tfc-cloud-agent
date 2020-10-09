@@ -3,9 +3,9 @@ provider "kubernetes" {
 }
 
 module "tfc_agent" {
-  source = "../.."
-
+  source  = "../.."
   context = module.this.context
-  token   = var.tfc_agent_token
+
+  tfc_agent_token = var.tfc_agent_token
 }
 
