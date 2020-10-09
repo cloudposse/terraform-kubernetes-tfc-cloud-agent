@@ -65,7 +65,7 @@ variable "resource_limits_cpu" {
 variable "resource_limits_memory" {
   type        = string
   default     = "512Mi"
-  description = "Kubernetes deployment resource memory limit"
+  description = "Kubernetes deployment resource hard memory limit"
 }
 
 variable "resource_requests_cpu" {
