@@ -55,6 +55,8 @@ references:
 # Short description of this project
 description: |-
   This project installed the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
+  
+  NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription. 
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
