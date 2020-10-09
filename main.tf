@@ -33,6 +33,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
         container {
           image = var.agent_image
           name  = "tfc-agent"
+          args  = var.agent_cli_args
           env {
             name  = "TFC_AGENT_TOKEN"
             value = var.tfc_agent_token

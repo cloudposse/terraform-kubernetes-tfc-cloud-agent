@@ -34,6 +34,12 @@ variable "agent_image" {
   description = "Name and tag of Terraform Cloud Agent docker image"
 }
 
+variable "agent_cli_args" {
+  type        = list
+  default     = []
+  description = "Extra command line arguments to pass to tfc-agent"
+}
+
 variable "tfc_agent_token" {
   type        = string
   default     = ""
