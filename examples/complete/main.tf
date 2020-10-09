@@ -8,4 +8,3 @@ module "tfc_agent" {
 
   tfc_agent_token = var.tfc_agent_token
 }
-

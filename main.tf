@@ -1,9 +1,15 @@
+locals {
+  service_account_name = coalesce(var.deployment_name, module.this.id, "tfc-agent")
+
+  namespace = coalesce(var.kubernetes_namespace, module.this.namespace, "default")
+}
+
 resource "kubernetes_service_account" "service_account" {
   count = module.this.enabled ? 1 : 0
 
   metadata {
-    name        = coalesce(var.deployment_name, module.this.id, "tfc-agent")
-    namespace   = coalesce(var.kubernetes_namespace, var.namespace, "default")
+    name        = local.service_account_name
+    namespace   = local.namespace
     annotations = var.service_account_annotations
   }
 }
@@ -13,7 +19,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
 
   metadata {
     name      = coalesce(var.deployment_name, module.this.id, "tfc-agent")
-    namespace = coalesce(var.kubernetes_namespace, var.namespace, "default")
+    namespace = local.namespace
     labels    = module.this.tags
   }
   spec {
@@ -24,11 +30,12 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
 
     template {
       metadata {
+        namespace   = local.namespace
         labels      = module.this.tags
         annotations = var.deployment_annotations
       }
       spec {
-        service_account_name            = kubernetes_service_account.service_account.0.metadata.0.name
+        service_account_name            = local.service_account_name
         automount_service_account_token = true
         container {
           image = var.agent_image
