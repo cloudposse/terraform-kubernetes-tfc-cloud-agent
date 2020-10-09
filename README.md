@@ -71,7 +71,7 @@ Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest re
 
 ```hcl
 provider "kubernetes" {
-  #Context to choose from the config file, if needed.
+  # Context to choose from the config file, if needed.
   config_context = "example-context"
   version        = "~> 1.12"
 }
