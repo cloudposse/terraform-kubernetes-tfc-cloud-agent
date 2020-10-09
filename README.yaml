@@ -61,7 +61,7 @@ usage: |-
 
   ```hcl
   provider "kubernetes" {
-    #Context to choose from the config file, if needed.
+    # Context to choose from the config file, if needed.
     config_context = "example-context"
     version        = "~> 1.12"
   }
