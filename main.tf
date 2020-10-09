@@ -2,8 +2,8 @@ resource "kubernetes_service_account" "service_account" {
   count = module.this.enabled ? 1 : 0
 
   metadata {
-    name      = coalesce(var.deployment_name, module.this.id, "tfc-agent")
-    namespace = coalesce(var.kubernetes_namespace, var.namespace, "default")
+    name        = coalesce(var.deployment_name, module.this.id, "tfc-agent")
+    namespace   = coalesce(var.kubernetes_namespace, var.namespace, "default")
     annotations = var.service_account_annotations
   }
 }
