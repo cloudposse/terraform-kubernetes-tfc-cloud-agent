@@ -69,7 +69,8 @@ usage: |-
   module "tfc_agent" {
     source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
-    token       = var.token # Your agent token generated in Terraform Cloud
+    # Your agent token generated in Terraform Cloud
+    token       = var.token 
     namespace   = var.namespace
     stage       = var.stage
     environment = var.environment
