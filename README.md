@@ -29,7 +29,7 @@
 
 This project installs the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
 
-NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription. 
+NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription.
 
 
 ---
@@ -82,14 +82,14 @@ module "tfc_agent" {
   source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
 
   # Your agent token generated in Terraform Cloud
-  token       = var.token 
+  token       = var.tcf_agent_token
   namespace   = var.namespace
   stage       = var.stage
   environment = var.environment
   name        = var.name
 
   # You can specify a namespace other than "default"
-  kubernetes_namespace = "tfc-agent" 
+  kubernetes_namespace = "tfc-agent"
 }
 ```
 
