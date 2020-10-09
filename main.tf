@@ -1,7 +1,15 @@
 locals {
   service_account_name = coalesce(var.deployment_name, module.this.id, "tfc-agent")
+  deployment_name      = coalesce(var.deployment_name, module.this.id, "tfc-agent")
 
-  namespace = coalesce(var.kubernetes_namespace, module.this.namespace, "default")
+  namespace = coalesce(var.kubernetes_namespace, "default")
+}
+
+resource "kubernetes_namespace" "namespace" {
+  count = var.namespace_creation_enabled ? 1 : 0
+  metadata {
+    name = local.namespace
+  }
 }
 
 resource "kubernetes_service_account" "service_account" {
@@ -14,11 +22,22 @@ resource "kubernetes_service_account" "service_account" {
   }
 }
 
+resource "kubernetes_secret" "secret" {
+  metadata {
+    name      = local.deployment_name
+    namespace = local.namespace
+  }
+
+  data = {
+    token = var.tfc_agent_token
+  }
+}
+
 resource "kubernetes_deployment" "tfc_cloud_agent" {
   count = module.this.enabled ? 1 : 0
 
   metadata {
-    name      = coalesce(var.deployment_name, module.this.id, "tfc-agent")
+    name      = local.deployment_name
     namespace = local.namespace
     labels    = module.this.tags
   }
@@ -42,8 +61,13 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
           name  = "tfc-agent"
           args  = var.agent_cli_args
           env {
-            name  = "TFC_AGENT_TOKEN"
-            value = var.tfc_agent_token
+            name = "TFC_AGENT_TOKEN"
+            value_from {
+              secret_key_ref {
+                key  = "token"
+                name = local.deployment_name
+              }
+            }
           }
           env {
             name  = "TFC_AGENT_NAME"
@@ -68,6 +92,13 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
           env {
             name  = "TFC_ADDRESS"
             value = var.tfc_address
+          }
+          dynamic "env" {
+            for_each = var.tfc_extra_envs
+            content {
+              name  = env.key
+              value = env.value
+            }
           }
           resources {
             limits {

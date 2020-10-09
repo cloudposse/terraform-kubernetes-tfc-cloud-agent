@@ -1,6 +1,6 @@
-# terraform-kubernetes-tfe-cloud-agent
+# terraform-kubernetes-tfc-cloud-agent
 
- [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfe-cloud-agent.svg)](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com) [![Discourse Forum](https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg)](https://ask.sweetops.com/)
+ [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg)](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com) [![Discourse Forum](https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg)](https://ask.sweetops.com/)
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -67,7 +67,7 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 
 **IMPORTANT:** The `master` branch is used in `source` just as an example. In your code, do not pin to `master` because there may be breaking changes between releases.
-Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/releases).
+Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases).
 
 
 
@@ -79,7 +79,7 @@ provider "kubernetes" {
 }
 
 module "tfc_agent" {
-  source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
+  source = "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent.git?ref=master"
 
   # Your agent token generated in Terraform Cloud
   token       = var.tcf_agent_token
@@ -99,7 +99,7 @@ module "tfc_agent" {
 ## Examples
 
 Here is an example of using this module:
-- [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/) - complete example of using this module
+- [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/) - complete example of using this module
 
 
 
@@ -134,6 +134,7 @@ Available targets:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
+| agent\_cli\_args | Extra command line arguments to pass to tfc-agent | `list` | `[]` | no |
 | agent\_image | Name and tag of Terraform Cloud Agent docker image | `string` | `"hashicorp/tfc-agent:latest"` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
@@ -147,13 +148,13 @@ Available targets:
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
+| namespace\_creation\_enabled | Enable this if the Kubernetes namespace does not already exist | `bool` | `false` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | replicas | Number of replicas in the Kubernetes deployment | `number` | `1` | no |
 | resource\_limits\_cpu | Kubernetes deployment resource hard CPU limit | `string` | `"1"` | no |
 | resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
 | resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
 | resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
-| selector\_match\_labels | Selector labels to match on the Kubernetes deployment | `map` | <pre>{<br>  "app": "tfc-agent"<br>}</pre> | no |
 | service\_account\_annotations | Annotations to add to the Kubernetes service account | `map` | `{}` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
@@ -163,10 +164,14 @@ Available targets:
 | tfc\_agent\_log\_level | The log verbosity expressed as a level string. Level options include<br>    "trace", "debug", "info", "warn", and "error" | `string` | `"info"` | no |
 | tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>    immediately exit thereafter. Useful for running agents as ephemeral<br>    containers, VMs, or other isolated contexts with a higher-level scheduler<br>    or process supervisor. | `bool` | `false` | no |
 | tfc\_agent\_token | The agent token to use when making requests to the Terraform Cloud API.<br>    This token must be obtained from the API or UI.  It is recommended to use<br>    the environment variable whenever possible for configuring this setting due<br>    to the sensitive nature of API tokens. | `string` | `""` | no |
+| tfc\_extra\_envs | A map of any extra environment variables to pass to the TFC agent | `map` | `{}` | no |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| namespace | n/a |
+| service\_account\_name | n/a |
 
 <!-- markdownlint-restore -->
 
@@ -174,7 +179,7 @@ No output.
 
 ## Share the Love
 
-Like this project? Please give it a ★ on [our GitHub](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent)! (it helps us **a lot**)
+Like this project? Please give it a ★ on [our GitHub](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent)! (it helps us **a lot**)
 
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
@@ -204,7 +209,7 @@ For additional context, refer to some of these links.
 
 **Got a question?** We got answers.
 
-File a GitHub [issue](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/issues), send us an [email][email] or join our [Slack Community][slack].
+File a GitHub [issue](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/issues), send us an [email][email] or join our [Slack Community][slack].
 
 [![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
 
@@ -252,7 +257,7 @@ Sign up for [our newsletter][newsletter] that covers everything on our technolog
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/issues) to report any bugs or file feature requests.
 
 ### Developing
 
@@ -341,32 +346,32 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 [![Beacon][beacon]][website]
 
   [logo]: https://cloudposse.com/logo-300x69.svg
-  [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=docs
-  [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=website
-  [github]: https://cpco.io/github?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=github
-  [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=jobs
-  [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=hire
-  [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=slack
-  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=linkedin
-  [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=twitter
-  [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=testimonial
-  [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=office_hours
-  [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=newsletter
-  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=discourse
-  [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=email
-  [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=commercial_support
-  [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=we_love_open_source
-  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=terraform_modules
+  [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=docs
+  [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=website
+  [github]: https://cpco.io/github?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=github
+  [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=jobs
+  [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=hire
+  [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=slack
+  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=linkedin
+  [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=twitter
+  [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=testimonial
+  [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=office_hours
+  [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=newsletter
+  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=discourse
+  [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=email
+  [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=commercial_support
+  [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=we_love_open_source
+  [terraform_modules]: https://cpco.io/terraform-modules?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=terraform_modules
   [readme_header_img]: https://cloudposse.com/readme/header/img
-  [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=readme_header_link
+  [readme_header_link]: https://cloudposse.com/readme/header/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=readme_header_link
   [readme_footer_img]: https://cloudposse.com/readme/footer/img
-  [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=readme_footer_link
+  [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
-  [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfe-cloud-agent&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-kubernetes-tfe-cloud-agent&url=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-kubernetes-tfe-cloud-agent&url=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [share_email]: mailto:?subject=terraform-kubernetes-tfe-cloud-agent&body=https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent
-  [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-kubernetes-tfe-cloud-agent?pixel&cs=github&cm=readme&an=terraform-kubernetes-tfe-cloud-agent
+  [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-kubernetes-tfc-cloud-agent&utm_content=readme_commercial_support_link
+  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-kubernetes-tfc-cloud-agent&url=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-kubernetes-tfc-cloud-agent&url=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [share_email]: mailto:?subject=terraform-kubernetes-tfc-cloud-agent&body=https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent
+  [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-kubernetes-tfc-cloud-agent?pixel&cs=github&cm=readme&an=terraform-kubernetes-tfc-cloud-agent

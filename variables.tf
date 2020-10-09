@@ -10,6 +10,12 @@ variable "kubernetes_namespace" {
   description = "Kubernetes namespace override"
 }
 
+variable "namespace_creation_enabled" {
+  type        = bool
+  default     = false
+  description = "Enable this if the Kubernetes namespace does not already exist"
+}
+
 variable "replicas" {
   type        = number
   default     = 1
@@ -92,6 +98,12 @@ variable "tfc_address" {
   type        = string
   default     = "https://app.terraform.io"
   description = "The HTTP or HTTPS address of the Terraform Cloud API."
+}
+
+variable "tfc_extra_envs" {
+  type        = map
+  default     = {}
+  description = "A map of any extra environment variables to pass to the TFC agent"
 }
 
 variable "resource_limits_cpu" {

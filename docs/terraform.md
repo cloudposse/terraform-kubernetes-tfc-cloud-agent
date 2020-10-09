@@ -17,6 +17,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
+| agent\_cli\_args | Extra command line arguments to pass to tfc-agent | `list` | `[]` | no |
 | agent\_image | Name and tag of Terraform Cloud Agent docker image | `string` | `"hashicorp/tfc-agent:latest"` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
@@ -30,13 +31,13 @@
 | label\_order | The naming order of the id output and Name tag.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 5 elements, but at least one must be present. | `list(string)` | `null` | no |
 | name | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
+| namespace\_creation\_enabled | Enable this if the Kubernetes namespace does not already exist | `bool` | `false` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | replicas | Number of replicas in the Kubernetes deployment | `number` | `1` | no |
 | resource\_limits\_cpu | Kubernetes deployment resource hard CPU limit | `string` | `"1"` | no |
 | resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
 | resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
 | resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
-| selector\_match\_labels | Selector labels to match on the Kubernetes deployment | `map` | <pre>{<br>  "app": "tfc-agent"<br>}</pre> | no |
 | service\_account\_annotations | Annotations to add to the Kubernetes service account | `map` | `{}` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
@@ -46,9 +47,13 @@
 | tfc\_agent\_log\_level | The log verbosity expressed as a level string. Level options include<br>    "trace", "debug", "info", "warn", and "error" | `string` | `"info"` | no |
 | tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>    immediately exit thereafter. Useful for running agents as ephemeral<br>    containers, VMs, or other isolated contexts with a higher-level scheduler<br>    or process supervisor. | `bool` | `false` | no |
 | tfc\_agent\_token | The agent token to use when making requests to the Terraform Cloud API.<br>    This token must be obtained from the API or UI.  It is recommended to use<br>    the environment variable whenever possible for configuring this setting due<br>    to the sensitive nature of API tokens. | `string` | `""` | no |
+| tfc\_extra\_envs | A map of any extra environment variables to pass to the TFC agent | `map` | `{}` | no |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| namespace | n/a |
+| service\_account\_name | n/a |
 
 <!-- markdownlint-restore -->

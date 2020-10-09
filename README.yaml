@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-kubernetes-tfe-cloud-agent
+name: terraform-kubernetes-tfc-cloud-agent
 
 # Logo for this project
 #logo: docs/logo.png
@@ -20,13 +20,13 @@ copyrights:
     year: "2020"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-kubernetes-tfe-cloud-agent
+github_repo: cloudposse/terraform-kubernetes-tfc-cloud-agent
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfe-cloud-agent.svg"
-    url: "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg"
+    url: "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -78,7 +78,7 @@ usage: |-
   }
 
   module "tfc_agent" {
-    source = "https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent.git?ref=master"
+    source = "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent.git?ref=master"
 
     # Your agent token generated in Terraform Cloud
     token       = var.tcf_agent_token
@@ -95,7 +95,7 @@ usage: |-
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfe-cloud-agent/) - complete example of using this module
+  - [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/) - complete example of using this module
 
 # Other files to include in this README from the project folder
 include:
