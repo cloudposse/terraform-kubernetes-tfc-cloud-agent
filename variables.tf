@@ -59,7 +59,7 @@ variable "token" {
 variable "resource_limits_cpu" {
   type        = string
   default     = "1"
-  description = "Kubernetes deployment resource CPU limit"
+  description = "Kubernetes deployment resource hard CPU limit"
 }
 
 variable "resource_limits_memory" {
