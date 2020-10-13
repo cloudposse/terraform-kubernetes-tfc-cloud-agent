@@ -94,7 +94,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
             value = var.tfc_address
           }
           dynamic "env" {
-            for_each = var.tfc_extra_envs
+            for_each = var.agent_envs
             content {
               name  = env.key
               value = env.value

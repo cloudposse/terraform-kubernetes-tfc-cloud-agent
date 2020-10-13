@@ -46,6 +46,12 @@ variable "agent_cli_args" {
   description = "Extra command line arguments to pass to tfc-agent"
 }
 
+variable "agent_envs" {
+  type        = map
+  default     = {}
+  description = "A map of any extra environment variables to pass to the TFC agent"
+}
+
 variable "tfc_agent_token" {
   type        = string
   default     = ""
@@ -98,12 +104,6 @@ variable "tfc_address" {
   type        = string
   default     = "https://app.terraform.io"
   description = "The HTTP or HTTPS address of the Terraform Cloud API."
-}
-
-variable "tfc_extra_envs" {
-  type        = map
-  default     = {}
-  description = "A map of any extra environment variables to pass to the TFC agent"
 }
 
 variable "resource_limits_cpu" {
