@@ -1,14 +1,9 @@
-output "id" {
-  description = "ID of the created example"
-  value       = module.this.enabled ? module.this.id : null
+output "service_account_name" {
+  value       = local.service_account_name
+  description = "Name of the Kubernetes service account"
 }
 
-output "example" {
-  description = "Example output"
-  value       = module.this.enabled ? local.example : null
-}
-
-output "random" {
-  description = "Stable random number for this example"
-  value       = module.this.enabled ? join("", random_integer.example[*].result) : null
+output "namespace" {
+  value       = local.namespace
+  description = "Name of the Kubernetes namespace"
 }

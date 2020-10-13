@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-example-module
+name: terraform-kubernetes-tfc-cloud-agent
 
 # Logo for this project
 #logo: docs/logo.png
@@ -20,13 +20,13 @@ copyrights:
     year: "2020"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-example-module
+github_repo: cloudposse/terraform-kubernetes-tfc-cloud-agent
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
-    url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg"
+    url: "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -48,41 +48,54 @@ references:
   - name: "Terraform Module Requirements"
     description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
     url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
-  - name: "Terraform `random_integer` Resource"
-    description: "The resource random_integer generates random values from a given range, described by the min and max attributes of a given resource."
-    url: "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer"
   - name: "Terraform Version Pinning"
     description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
     url: "https://www.terraform.io/docs/configuration/terraform.html#specifying-a-required-terraform-version"
+  - name: "Terraform Cloud Agents"
+    description: "Terraform Cloud Agents are a solution to allow Terraform Cloud to communicate with isolated, private, or on-premises infrastructure."
+    url: "https://www.terraform.io/docs/cloud/workspaces/agent.html"
+  - name: "Announcing HashiCorp Terraform Cloud Business Tier"
+    description: "This new tier includes enterprise features for advanced security, compliance and governance, the ability to execute multiple runs concurrently, and flexible support options."
+    url: "https://www.hashicorp.com/blog/announcing-hashicorp-terraform-cloud-business"
+  - name: "Announcing Terraform Cloud Business Tier with Armon Dadgar"
+    description: "Watch HashiCorp co-founder and CTO Armon Dadgar announce the latest addition to Terraform Cloud: the new Business tier."
+    url: "https://www.hashicorp.com/resources/announcing-terraform-cloud-business-tier-with-armon-dadgar"
 
 # Short description of this project
 description: |-
-  This is `terraform-example-module` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-  use when creating new repositories.
-
-# Introduction to the project
-#introduction: |-
-#  This is an introduction.
+  This project installs the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
+  
+  NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription.
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
-  Here's how to invoke this example module in your projects
 
   ```hcl
-  module "example" {
-    source = "https://github.com/cloudposse/terraform-example-module.git?ref=master"
-    example = "Hello world!"
+  provider "kubernetes" {
+    # Context to choose from the config file, if needed.
+    config_context = "example-context"
+    version        = "~> 1.12"
+  }
+
+  module "tfc_agent" {
+    source = "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent.git?ref=master"
+
+    # Your agent token generated in Terraform Cloud
+    token       = var.tfc_agent_token
+    namespace   = var.namespace
+    stage       = var.stage
+    environment = var.environment
+    name        = var.name
+
+    # You can specify a namespace other than "default"
+    kubernetes_namespace = "tfc-agent"
   }
   ```
 
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
-
-# How to get started quickly
-#quickstart: |-
-#  Here's how to get started...
+  - [`examples/complete`](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/) - complete example of using this module
 
 # Other files to include in this README from the project folder
 include:
@@ -91,5 +104,5 @@ include:
 
 # Contributors to this project
 contributors:
-  - name: "Erik Osterman"
-    github: "osterman"
+  - name: "Dan Meyers"
+    github: "danjbh"
