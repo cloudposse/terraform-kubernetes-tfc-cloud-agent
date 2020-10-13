@@ -69,7 +69,7 @@ variable "tfc_agent_log_level" {
 variable "tfc_agent_data_dir" {
   type        = string
   default     = "~/.tfc-agent"
-  description = <<EOF
+  description = <<-EOF
     The path to a directory to store all agent-related data, including
     Terraform configurations, cached Terraform release archives, etc. It is
     important to ensure that the given directory is backed by plentiful
