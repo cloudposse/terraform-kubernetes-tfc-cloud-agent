@@ -49,7 +49,7 @@ variable "agent_cli_args" {
 variable "tfc_agent_token" {
   type        = string
   default     = ""
-  description = <<EOF
+  description = <<-EOF
     The agent token to use when making requests to the Terraform Cloud API.
     This token must be obtained from the API or UI.  It is recommended to use
     the environment variable whenever possible for configuring this setting due
@@ -60,7 +60,7 @@ variable "tfc_agent_token" {
 variable "tfc_agent_log_level" {
   type        = string
   default     = "info"
-  description = <<EOF
+  description = <<-EOF
     The log verbosity expressed as a level string. Level options include
     "trace", "debug", "info", "warn", and "error"
   EOF
