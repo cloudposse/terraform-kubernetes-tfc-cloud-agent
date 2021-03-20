@@ -23,13 +23,13 @@ variable "replicas" {
 }
 
 variable "deployment_annotations" {
-  type        = map(any)
+  type        = map
   default     = {}
   description = "Annotations to add to the Kubernetes deployment"
 }
 
 variable "service_account_annotations" {
-  type        = map(any)
+  type        = map
   default     = {}
   description = "Annotations to add to the Kubernetes service account"
 }
@@ -41,13 +41,13 @@ variable "agent_image" {
 }
 
 variable "agent_cli_args" {
-  type        = list(any)
+  type        = list
   default     = []
   description = "Extra command line arguments to pass to tfc-agent"
 }
 
 variable "agent_envs" {
-  type        = map(any)
+  type        = map
   default     = {}
   description = "A map of any extra environment variables to pass to the TFC agent"
 }
