@@ -100,6 +100,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
               value = env.value
             }
           }
+          /*
           resources {
             limits = {
               cpu    = var.resource_limits_cpu
@@ -110,6 +111,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
               memory = var.resource_requests_memory
             }
           }
+          */
         }
       }
     }
