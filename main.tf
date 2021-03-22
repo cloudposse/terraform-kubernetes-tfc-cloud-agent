@@ -1,8 +1,8 @@
 locals {
   service_account_name = coalesce(var.deployment_name, module.this.id, "tfc-agent")
   deployment_name      = coalesce(var.deployment_name, module.this.id, "tfc-agent")
-
-  namespace = coalesce(var.kubernetes_namespace, "default")
+  tfc_agent_data_dir   = var.tfc_agent_data_dir != null ? [var.tfc_agent_data_dir] : []
+  namespace            = coalesce(var.kubernetes_namespace, "default")
 }
 
 resource "kubernetes_namespace" "namespace" {
@@ -97,9 +97,8 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
               value = env.value
             }
           }
-
           dynamic "env" {
-            count = var.tfc_agent_data_dir ? 1 : 0
+            for_each = local.tfc_agent_data_dir
             content {
               name  = "TFC_AGENT_DATA_DIR"
               value = var.tfc_agent_data_dir
