@@ -1,6 +1,8 @@
+<!-- markdownlint-disable -->
 # terraform-kubernetes-tfc-cloud-agent
 
  [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg)](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com) [![Discourse Forum](https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg)](https://ask.sweetops.com/)
+<!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
 
@@ -63,11 +65,37 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 
 
+## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
+
+Security scanning is graciously provided by Bridgecrew. Bridgecrew is the leading fully hosted, cloud-native solution providing continuous Terraform security and compliance.
+
+| Benchmark | Description |
+|--------|---------------|
+| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
+| [![CIS KUBERNETES](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/cis_kubernetes)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=CIS+KUBERNETES+V1.5) | Center for Internet Security, KUBERNETES Compliance |
+| [![CIS AWS](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/cis_aws)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=CIS+AWS+V1.2) | Center for Internet Security, AWS Compliance |
+| [![CIS AZURE](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=CIS+AZURE+V1.1) | Center for Internet Security, AZURE Compliance |
+| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
+| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
+| [![ISO27001](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
+| [![SOC2](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=SOC2)| Service Organization Control 2 Compliance |
+| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
+| [![HIPAA](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-kubernetes-tfc-cloud-agent/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-kubernetes-tfc-cloud-agent&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
+
+
+
 ## Usage
 
 
-**IMPORTANT:** The `master` branch is used in `source` just as an example. In your code, do not pin to `master` because there may be breaking changes between releases.
-Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases).
+**IMPORTANT:** We do not pin modules to versions in our examples because of the
+difficulty of keeping the versions in the documentation in sync with the latest released versions.
+We highly recommend that in your code you pin the version to the exact version you are
+using so that your infrastructure remains stable, and update versions in a
+systematic way so that they do not catch you by surprise.
+
+Also, because of a bug in the Terraform registry ([hashicorp/terraform#21417](https://github.com/hashicorp/terraform/issues/21417)),
+the registry shows many of our inputs as required when in fact they are optional.
+The table below correctly indicates which inputs are required.
 
 
 
@@ -120,7 +148,7 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0, < 0.14.0 |
+| terraform | >= 0.12.0 |
 | kubernetes | >= 1.12.0 |
 
 ## Providers
@@ -129,18 +157,33 @@ Available targets:
 |------|---------|
 | kubernetes | >= 1.12.0 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| this | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.24.1 |  |
+
+## Resources
+
+| Name |
+|------|
+| [kubernetes_deployment](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment) |
+| [kubernetes_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) |
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_tag\_map | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| agent\_cli\_args | Extra command line arguments to pass to tfc-agent | `list` | `[]` | no |
-| agent\_envs | A map of any extra environment variables to pass to the TFC agent | `map` | `{}` | no |
+| agent\_cli\_args | Extra command line arguments to pass to tfc-agent | `list(any)` | `[]` | no |
+| agent\_envs | A map of any extra environment variables to pass to the TFC agent | `map(any)` | `{}` | no |
 | agent\_image | Name and tag of Terraform Cloud Agent docker image | `string` | `"hashicorp/tfc-agent:latest"` | no |
 | attributes | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | context | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | delimiter | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| deployment\_annotations | Annotations to add to the Kubernetes deployment | `map` | `{}` | no |
+| deployment\_annotations | Annotations to add to the Kubernetes deployment | `map(any)` | `{}` | no |
 | deployment\_name | Override the deployment name in Kubernetes | `string` | `null` | no |
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -156,11 +199,11 @@ Available targets:
 | resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
 | resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
 | resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
-| service\_account\_annotations | Annotations to add to the Kubernetes service account | `map` | `{}` | no |
+| service\_account\_annotations | Annotations to add to the Kubernetes service account | `map(any)` | `{}` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | tfc\_address | The HTTP or HTTPS address of the Terraform Cloud API. | `string` | `"https://app.terraform.io"` | no |
-| tfc\_agent\_data\_dir | The path to a directory to store all agent-related data, including<br>Terraform configurations, cached Terraform release archives, etc. It is<br>important to ensure that the given directory is backed by plentiful<br>storage. | `string` | `"~/.tfc-agent"` | no |
+| tfc\_agent\_data\_dir | The path to a directory to store all agent-related data, including<br>Terraform configurations, cached Terraform release archives, etc. It is<br>important to ensure that the given directory is backed by plentiful<br>storage. | `string` | `null` | no |
 | tfc\_agent\_disable\_update | Disable automatic core updates. | `bool` | `false` | no |
 | tfc\_agent\_log\_level | The log verbosity expressed as a level string. Level options include<br>"trace", "debug", "info", "warn", and "error" | `string` | `"info"` | no |
 | tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>immediately exit thereafter. Useful for running agents as ephemeral<br>containers, VMs, or other isolated contexts with a higher-level scheduler<br>or process supervisor. | `bool` | `false` | no |
@@ -172,7 +215,6 @@ Available targets:
 |------|-------------|
 | namespace | Name of the Kubernetes namespace |
 | service\_account\_name | Name of the Kubernetes service account |
-
 <!-- markdownlint-restore -->
 
 
@@ -277,7 +319,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2020-2020 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2021-2021 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
@@ -336,8 +378,10 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
+<!-- markdownlint-disable -->
 |  [![Dan Meyers][danjbh_avatar]][danjbh_homepage]<br/>[Dan Meyers][danjbh_homepage] |
 |---|
+<!-- markdownlint-restore -->
 
   [danjbh_homepage]: https://github.com/danjbh
   [danjbh_avatar]: https://img.cloudposse.com/150x150/https://github.com/danjbh.png
