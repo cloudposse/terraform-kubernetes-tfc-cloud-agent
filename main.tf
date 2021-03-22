@@ -101,11 +101,11 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
             }
           }
           resources {
-            limits {
+            limits = {
               cpu    = var.resource_limits_cpu
               memory = var.resource_limits_memory
             }
-            requests {
+            requests = {
               cpu    = var.resource_requests_cpu
               memory = var.resource_requests_memory
             }
