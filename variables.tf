@@ -114,18 +114,18 @@ variable "resource_limits_cpu" {
 
 variable "resource_limits_memory" {
   type        = string
-  default     = "512Mi"
+  default     = "2Gi"
   description = "Kubernetes deployment resource hard memory limit"
 }
 
 variable "resource_requests_cpu" {
   type        = string
-  default     = "250m"
+  default     = "500m"
   description = "Kubernetes deployment resource CPU requests"
 }
 
 variable "resource_requests_memory" {
   type        = string
-  default     = "50Mi"
+  default     = "250Mi"
   description = "Kubernetes deployment resource memory requests"
 }

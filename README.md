@@ -196,9 +196,9 @@ Available targets:
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | replicas | Number of replicas in the Kubernetes deployment | `number` | `1` | no |
 | resource\_limits\_cpu | Kubernetes deployment resource hard CPU limit | `string` | `"1"` | no |
-| resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
-| resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
-| resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
+| resource\_limits\_memory | Kubernetes deployment resource hard memory limit | `string` | `"2Gi"` | no |
+| resource\_requests\_cpu | Kubernetes deployment resource CPU requests | `string` | `"500m"` | no |
+| resource\_requests\_memory | Kubernetes deployment resource memory requests | `string` | `"250Mi"` | no |
 | service\_account\_annotations | Annotations to add to the Kubernetes service account | `map(any)` | `{}` | no |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
