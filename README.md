@@ -160,7 +160,7 @@ Available targets:
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | tfc\_address | The HTTP or HTTPS address of the Terraform Cloud API. | `string` | `"https://app.terraform.io"` | no |
-| tfc\_agent\_data\_dir | The path to a directory to store all agent-related data, including<br>Terraform configurations, cached Terraform release archives, etc. It is<br>important to ensure that the given directory is backed by plentiful<br>storage. | `string` | `"~/.tfc-agent"` | no |
+| tfc\_agent\_data\_dir | The path to a directory to store all agent-related data, including<br>Terraform configurations, cached Terraform release archives, etc. It is<br>important to ensure that the given directory is backed by plentiful<br>storage. | `string` | `null` | no |
 | tfc\_agent\_disable\_update | Disable automatic core updates. | `bool` | `false` | no |
 | tfc\_agent\_log\_level | The log verbosity expressed as a level string. Level options include<br>"trace", "debug", "info", "warn", and "error" | `string` | `"info"` | no |
 | tfc\_agent\_single | Enable single mode. This causes the agent to handle at most one job and<br>immediately exit thereafter. Useful for running agents as ephemeral<br>containers, VMs, or other isolated contexts with a higher-level scheduler<br>or process supervisor. | `bool` | `false` | no |
