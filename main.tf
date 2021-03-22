@@ -77,10 +77,7 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
             name  = "TFC_AGENT_LOG_LEVEL"
             value = var.tfc_agent_log_level
           }
-          env {
-            name  = "TFC_AGENT_DATA_DIR"
-            value = var.tfc_agent_data_dir
-          }
+
           env {
             name  = "TFC_AGENT_SINGLE"
             value = var.tfc_agent_single
@@ -100,6 +97,15 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
               value = env.value
             }
           }
+
+          dynamic "env" {
+            count = var.tfc_agent_data_dir ? 1 : 0
+            content {
+              name  = "TFC_AGENT_DATA_DIR"
+              value = var.tfc_agent_data_dir
+            }
+          }
+
           resources {
             limits = {
               cpu    = var.resource_limits_cpu
