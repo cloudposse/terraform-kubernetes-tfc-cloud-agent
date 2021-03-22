@@ -129,6 +129,20 @@ Available targets:
 |------|---------|
 | kubernetes | >= 1.12.0 |
 
+## Modules
+| Name | Source | Version |
+|------|--------|---------|
+| this | git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.24.1 | 0.24.1 |
+
+## Resources
+| Name |
+|------|
+| [kubernetes_deployment](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment) |
+| [kubernetes_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) |
+| [kubernetes_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) |
+| [kubernetes_service_account](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) |
+
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
