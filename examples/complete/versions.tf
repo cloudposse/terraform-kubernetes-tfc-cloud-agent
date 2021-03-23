@@ -1,7 +1,7 @@
 terraform {
-  required_version = ">= 0.12.0, < 0.14"
+  required_version = ">= 0.13.0"
 
   required_providers {
-    kubernetes = "~> 1.12"
+    kubernetes = ">= 2.0.0"
   }
 }
