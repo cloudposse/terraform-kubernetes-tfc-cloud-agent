@@ -103,7 +103,7 @@ The table below correctly indicates which inputs are required.
 provider "kubernetes" {
   # Context to choose from the config file, if needed.
   config_context = "example-context"
-  version        = "~> 2.0"
+  version        = "~> 2.0.0"
 }
 
 module "tfc_agent" {
