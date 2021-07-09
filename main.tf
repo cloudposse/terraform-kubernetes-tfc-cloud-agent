@@ -78,10 +78,6 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
             value = var.tfc_agent_log_level
           }
           env {
-            name  = "TFC_AGENT_DATA_DIR"
-            value = var.tfc_agent_data_dir
-          }
-          env {
             name  = "TFC_AGENT_SINGLE"
             value = var.tfc_agent_single
           }
@@ -92,6 +88,13 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
           env {
             name  = "TFC_ADDRESS"
             value = var.tfc_address
+          }
+          dynamic "env" {
+            for_each = var.tfc_agent_data_dir == null ? [] : [1]
+            content {
+              name  = "TFC_AGENT_DATA_DIR"
+              value = var.tfc_agent_data_dir
+            }
           }
           dynamic "env" {
             for_each = var.agent_envs
