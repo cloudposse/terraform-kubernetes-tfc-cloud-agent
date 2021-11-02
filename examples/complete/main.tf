@@ -1,5 +1,5 @@
 provider "kubernetes" {
-  version = "~> 1.12"
+  config_path = "~/.kube/config"
 }
 
 module "tfc_agent" {

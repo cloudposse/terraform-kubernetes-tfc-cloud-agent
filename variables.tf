@@ -23,13 +23,13 @@ variable "replicas" {
 }
 
 variable "deployment_annotations" {
-  type        = map
+  type        = map(any)
   default     = {}
   description = "Annotations to add to the Kubernetes deployment"
 }
 
 variable "service_account_annotations" {
-  type        = map
+  type        = map(any)
   default     = {}
   description = "Annotations to add to the Kubernetes service account"
 }
@@ -41,13 +41,13 @@ variable "agent_image" {
 }
 
 variable "agent_cli_args" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Extra command line arguments to pass to tfc-agent"
 }
 
 variable "agent_envs" {
-  type        = map
+  type        = map(any)
   default     = {}
   description = "A map of any extra environment variables to pass to the TFC agent"
 }
@@ -92,12 +92,6 @@ variable "tfc_agent_single" {
     containers, VMs, or other isolated contexts with a higher-level scheduler
     or process supervisor.
   EOF
-}
-
-variable "tfc_agent_disable_update" {
-  type        = bool
-  default     = false
-  description = "Disable automatic core updates."
 }
 
 variable "tfc_address" {

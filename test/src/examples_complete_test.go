@@ -18,7 +18,7 @@ func TestExamplesComplete(t *testing.T) {
 	randId := strconv.Itoa(rand.Intn(100000))
 	attributes := []string{randId}
 
-	terraformOptions := &terraform.Options{
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../../examples/complete",
 		Upgrade:      true,
@@ -30,7 +30,7 @@ func TestExamplesComplete(t *testing.T) {
 			"attributes": attributes,
 			"tfc_agent_token": os.Getenv("TFC_AGENT_TOKEN"),
 		},
-	}
+	})
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
 	defer terraform.Destroy(t, terraformOptions)
 
