@@ -1,6 +1,4 @@
-provider "kubernetes" {
-  version = "~> 1.12"
-}
+
 
 module "tfc_agent" {
   source  = "../.."
