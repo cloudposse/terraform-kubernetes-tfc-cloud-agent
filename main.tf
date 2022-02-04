@@ -82,8 +82,8 @@ resource "kubernetes_deployment" "tfc_cloud_agent" {
             value = var.tfc_agent_single
           }
           env {
-            name  = "TFC_AGENT_DISABLE_UPDATE"
-            value = var.tfc_agent_disable_update
+            name  = "TFC_AGENT_AUTO_UPDATE"
+            value = var.tfc_agent_auto_update
           }
           env {
             name  = "TFC_ADDRESS"
