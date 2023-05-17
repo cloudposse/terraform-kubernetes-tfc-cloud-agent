@@ -11,6 +11,7 @@ resource "kubernetes_namespace" "namespace" {
     name = local.namespace
   }
 }
+    
 
 resource "kubernetes_service_account" "service_account" {
   count = module.this.enabled ? 1 : 0
