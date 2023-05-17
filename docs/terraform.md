@@ -32,13 +32,13 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
-| <a name="input_agent_cli_args"></a> [agent\_cli\_args](#input\_agent\_cli\_args) | Extra command line arguments to pass to tfc-agent | `list` | `[]` | no |
-| <a name="input_agent_envs"></a> [agent\_envs](#input\_agent\_envs) | A map of any extra environment variables to pass to the TFC agent | `map` | `{}` | no |
+| <a name="input_agent_cli_args"></a> [agent\_cli\_args](#input\_agent\_cli\_args) | Extra command line arguments to pass to tfc-agent | `list(any)` | `[]` | no |
+| <a name="input_agent_envs"></a> [agent\_envs](#input\_agent\_envs) | A map of any extra environment variables to pass to the TFC agent | `map(any)` | `{}` | no |
 | <a name="input_agent_image"></a> [agent\_image](#input\_agent\_image) | Name and tag of Terraform Cloud Agent docker image | `string` | `"hashicorp/tfc-agent:latest"` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
-| <a name="input_deployment_annotations"></a> [deployment\_annotations](#input\_deployment\_annotations) | Annotations to add to the Kubernetes deployment | `map` | `{}` | no |
+| <a name="input_deployment_annotations"></a> [deployment\_annotations](#input\_deployment\_annotations) | Annotations to add to the Kubernetes deployment | `map(any)` | `{}` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | Override the deployment name in Kubernetes | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -54,7 +54,7 @@
 | <a name="input_resource_limits_memory"></a> [resource\_limits\_memory](#input\_resource\_limits\_memory) | Kubernetes deployment resource hard memory limit | `string` | `"512Mi"` | no |
 | <a name="input_resource_requests_cpu"></a> [resource\_requests\_cpu](#input\_resource\_requests\_cpu) | Kubernetes deployment resource CPU requests | `string` | `"250m"` | no |
 | <a name="input_resource_requests_memory"></a> [resource\_requests\_memory](#input\_resource\_requests\_memory) | Kubernetes deployment resource memory requests | `string` | `"50Mi"` | no |
-| <a name="input_service_account_annotations"></a> [service\_account\_annotations](#input\_service\_account\_annotations) | Annotations to add to the Kubernetes service account | `map` | `{}` | no |
+| <a name="input_service_account_annotations"></a> [service\_account\_annotations](#input\_service\_account\_annotations) | Annotations to add to the Kubernetes service account | `map(any)` | `{}` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 | <a name="input_tfc_address"></a> [tfc\_address](#input\_tfc\_address) | The HTTP or HTTPS address of the Terraform Cloud API. | `string` | `"https://app.terraform.io"` | no |
