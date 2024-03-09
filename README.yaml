@@ -23,15 +23,6 @@ github_repo: cloudposse/terraform-kubernetes-tfc-cloud-agent
 
 # Badges to display
 badges:
-  - name: Last Updated
-    image: https://img.shields.io/github/last-commit/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
-    url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/commits
-  - name: Last Updated
-    image: https://img.shields.io/github/last-commit/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
-    url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/commits
-  - name: Last Updated
-    image: https://img.shields.io/github/last-commit/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
-    url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/commits
   - name: Latest Release
     image: https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
     url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest
