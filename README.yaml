@@ -1,4 +1,3 @@
----
 #
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
@@ -24,15 +23,15 @@ github_repo: cloudposse/terraform-kubernetes-tfc-cloud-agent
 
 # Badges to display
 badges:
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg"
-    url: "https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest"
-  - name: "Slack Community"
-    image: "https://slack.cloudposse.com/badge.svg"
-    url: "https://slack.cloudposse.com"
-  - name: "Discourse Forum"
-    image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
-    url: "https://ask.sweetops.com/"
+  - name: Latest Release
+    image: https://img.shields.io/github/release/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/releases/latest
+  - name: Last Updated
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-kubernetes-tfc-cloud-agent.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-kubernetes-tfc-cloud-agent/commits
+  - name: Slack Community
+    image: https://slack.cloudposse.com/for-the-badge.svg
+    url: https://slack.cloudposse.com
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:
@@ -64,11 +63,11 @@ references:
 # Short description of this project
 description: |-
   This project installs the Terraform Cloud Agent on an existing Kubernetes cluster. You must provide your own Kubernetes provider configuration in your project!
-  
+
   NOTE: Requires [Terraform Cloud Business or Terraform Enterprise](https://www.hashicorp.com/products/terraform/pricing) subscription.
 
 # How to use this module. Should be an easy example to copy and paste.
-usage: |-
+usage: |2-
 
   ```hcl
   provider "kubernetes" {
@@ -103,6 +102,4 @@ include:
   - "docs/terraform.md"
 
 # Contributors to this project
-contributors:
-  - name: "Dan Meyers"
-    github: "danjbh"
+contributors: []
